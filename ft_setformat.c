@@ -14,28 +14,37 @@
 
 void		ft_setformat(t_printf *format)
 {
-	format->spaces = 0;
+	int nb;
+
+	format->width = 0;
 	format->precision = 0;
 	format->tab = ' ';
 	format->zero_space = ' ';
+
+
 	while(!ft_isalpha(*format->str))
 	{
+		++format->str;
 		if (*format->str == '-')
 			format->tab = '-';
-		if (*format->str == '0' && format->spaces == 0)
+		if (*format->str == '0' && format->width == 0)
 			format->zero_space = '0';
 		if (*format->str == '*')
-			format->spaces = va_arg(format->argptr, int);
-		if (ft_isdigit(*format->str) && *format->str != '0' && format->spaces == 0)
-			format->spaces = ft_atoi(format->str);
+		{
+			nb = va_arg(format->argptr, int);
+			format->width = (nb < 0) ? (nb * -1) : nb;
+			if (nb < 0)
+				format->tab = '-';
+		}
+		if (ft_isdigit(*format->str) && *format->str != '0' && format->width == 0)
+			format->width = ft_atoi(format->str);
 		if (*format->str == '.')
 		{
 			format->str++;
 			if (*format->str == '*')
-				format->spaces = va_arg(format->argptr, int);
+				format->precision = va_arg(format->argptr, int);
 			if (ft_isdigit(*format->str))
-				format->spaces = ft_atoi(format->str);
+				format->precision = ft_atoi(format->str);
 		}
-		format->str++;
 	}
 }

@@ -36,15 +36,31 @@ size_t		ft_intlen(long nb)
 }
 
 void		ft_spacex(t_printf *format, int nb)
-{
-	if(format->spaces > 0)
-	{
-		format->spaces -= ft_intlen(nb);
-		while(format->spaces-- > 0 && format->tab == '-')
-			format->len_str += write(1, &format->zero_space, 1);
-		while(format->spaces-- > 0 && format->tab != '-')
-			format->len_str += write(1, &format->zero_space, 1);
-		ft_putnbr_fd(nb, 1);
+{	
+	int len;
+	int space;
+	int	zero;
 
+	len = ft_intlen(nb);
+	space = format->width - ((format->precision < len ) ? len : format->precision);
+	space += (nb == 0 && format->precision == 0) ? len : 0;
+	space -= (nb < 0) ? 1 : 0;
+	zero = (nb < 0) ? (format->precision - len) + 1 : (format->precision - len);
+	while(space > 0 && format->tab != '-')
+	{	
+		format->zero_space = ' ';
+		format->len_str = write(1, &format->zero_space, 1);
+		space--;
+	}
+	nb < 0 ? ft_putchar_fd('-', 1) : 0;
+	while(zero-- > 0)
+	{
+		format->zero_space = '0'; 
+		format->len_str = write(1, &format->zero_space, 1);
+	}
+	(format->precision == 0 && nb == 0) ? 0 : ft_putnbr_fd(nb, 1);
+	while(space-- > 0)
+	{
+		format->len_str = write(1, " ", 1);
 	}
 }

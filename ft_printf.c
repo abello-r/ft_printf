@@ -19,7 +19,6 @@ void		ft_formatletter(t_printf *format)
 	{
 		if (*format->str == '%')
 		{
-			format->str++;
 			ft_setformat(format);
 			ft_spacex(format,va_arg(format->argptr, int));
 		}
@@ -41,9 +40,9 @@ int			ft_printf(const char *s, ...)
 	return (format.len_str);
 }
 
-int			main(void)
+/*int			main(void)
 {
-	ft_printf("\n%d", 777);
-	   printf("\n%d", 777);
+	ft_printf("\n%0*.*d*", 42, 0, 0);
+	   printf("\n%0*.*d*", 42, 0, 0);
 	return (0);
-}
+}*/

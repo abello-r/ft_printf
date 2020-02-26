@@ -23,10 +23,7 @@ void			ft_putnbr_fd(int n, int fd)
 
 	i = n;
 	if (i < 0)
-	{
-		write(fd, "-", 1);
 		i = i * -1;
-	}
 	if (i > 9)
 		ft_putnbr_fd(i / 10, fd);
 	ft_putchar(i % 10 + 48, fd);

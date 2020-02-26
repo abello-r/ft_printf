@@ -22,15 +22,16 @@ typedef struct	s_printf
 	char		*str;
 	char		zero_space;
 	char		tab;
-	int			spaces;
+	int			width;
 	int			precision;
 	int			len_str;
 	va_list		argptr;
 } 				t_printf;
 
-void	ft_spacex(t_printf *format, int nb);
-int		ft_identify(t_printf *format, char c);
-void	ft_setformat(t_printf *format);
 int		ft_printf(const char *s, ...);
+size_t	ft_intlen(long nb);
+void	ft_spacex(t_printf *format, int nb);
+void	ft_formatletter(t_printf *format);
+void	ft_setformat(t_printf *format);
 
 #endif
