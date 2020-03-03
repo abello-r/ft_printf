@@ -18,10 +18,10 @@
 
 typedef struct	s_printf
 {
-	char		type;
 	char		*str;
 	char		zero_space;
 	char		tab;
+	char		dot;
 	int			width;
 	int			precision;
 	int			len_str;
@@ -33,5 +33,6 @@ size_t	ft_intlen(long nb);
 void	ft_spacex(t_printf *format, int nb);
 void	ft_formatletter(t_printf *format);
 void	ft_setformat(t_printf *format);
+void	ft_displayc(t_printf *format, int nb);
 
 #endif

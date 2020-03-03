@@ -20,7 +20,10 @@ void		ft_formatletter(t_printf *format)
 		if (*format->str == '%')
 		{
 			ft_setformat(format);
-			ft_spacex(format,va_arg(format->argptr, int));
+				if (*format->str == 'd' || *format->str == 'i')
+					ft_spacex(format,va_arg(format->argptr, int));
+				else if (*format->str == 'c')
+					ft_displayc(format,va_arg(format->argptr, int));
 		}
 		else
 			format->len_str += write(1, format->str, 1);
@@ -40,9 +43,9 @@ int			ft_printf(const char *s, ...)
 	return (format.len_str);
 }
 
-/*int			main(void)
+int			main(void)
 {
-	ft_printf("\n%0*.*d*", 42, 0, 0);
-	   printf("\n%0*.*d*", 42, 0, 0);
+	printf("\n|%d|\n", ft_printf("\n%-5c", ' '));
+	   printf("\n|%d|\n", printf("\n%-5c", ' '));
 	return (0);
-}*/
+}

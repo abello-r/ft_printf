@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   flag2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abello-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/08 13:51:50 by abello-r          #+#    #+#             */
-/*   Updated: 2020/01/24 12:25:29 by abello-r         ###   ########.fr       */
+/*   Created: 2020/03/02 20:08:08 by abello-r          #+#    #+#             */
+/*   Updated: 2020/03/02 20:08:12 by abello-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
-void	ft_bzero(void *s, size_t n)
+void		ft_displayc(t_printf *format, int nb)
 {
-	ft_memset(s, 0, n);
+	int space;
+
+	space = (format->width > 0) ? (format->width) : 0;
+	space -= (format->width > 0 && format->tab != '-') ? 1 : 0;
+	while (space-- > 0 && format->tab != '-')
+		format->len_str += write(1, " ", 1);
+	format->len_str += write(1, &nb, 1);
+	while (space-- > 0 && format->tab == '-')
+		format->len_str += write(1, " ", 1);
 }

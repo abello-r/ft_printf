@@ -20,7 +20,7 @@ void		ft_setformat(t_printf *format)
 	format->precision = 0;
 	format->tab = ' ';
 	format->zero_space = ' ';
-
+	format->dot = ' ';
 
 	while(!ft_isalpha(*format->str))
 	{
@@ -40,9 +40,14 @@ void		ft_setformat(t_printf *format)
 			format->width = ft_atoi(format->str);
 		if (*format->str == '.')
 		{
+			format->dot = '.';
 			format->str++;
 			if (*format->str == '*')
+			{
 				format->precision = va_arg(format->argptr, int);
+				if (format->precision == 0)
+					format->precision = -1;
+			}
 			if (ft_isdigit(*format->str))
 				format->precision = ft_atoi(format->str);
 		}
