@@ -16,7 +16,6 @@ void		ft_memorypointer(char *str)
 {
 	size_t	*x;
 
-	ft_putstr_fd("0x", 1);
 	x = (size_t *)&str;
 	ft_hexa(*x);
 }

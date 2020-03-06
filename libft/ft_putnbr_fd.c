@@ -17,7 +17,7 @@ static void		ft_putchar(char x, int fd)
 	write(fd, &x, 1);
 }
 
-void			ft_putnbr_fd(int n, int fd)
+void			ft_putnbr_fd(long n, int fd)
 {
 	int long i;
 

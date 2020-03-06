@@ -1,37 +1,32 @@
-NAME	= libftprintf.a
+SRCS	= flag1.c flag2.c flag3.c flag4.c flag5.c flag6.c flag7.c ft_setformat.c ft_printf.c
 
+OBJS	= ${SRCS:.c=.o}
+
+NAME	= libftprintf.a
 CC		= cc
-RM		= @rm -f
+RM		= rm -f
 CFLAGS	= -Wall -Werror -Wextra
 
-$(NAME):
-		@clear
-		@printf "\n\033[32mCompilando... ♻️ \v\n"
-		@make -sC ./libft/
-		@cp libft/libft.a .
-		@mv libft.a $(NAME)
-		@gcc -c ft_printf.c ft_setformat.c flag1.c flag2.c
-		@ar rc  $(NAME) ft_printf.o ft_setformat.o flag1.o flag2.o
-		@ranlib $(NAME)
+.c.o:
+		${CC} ${FLAGS} -c $< -o ${<:.c=.o}
 
-run:
-	@clear #quitar luego campeon acuerdate del alex del pasado
-	@gcc ft_printf.c flag1.c flag2.c ft_setformat.c -g libftprintf.a && ./a.out #lo de arriba x2
-	
+$(NAME): ${OBJS}
+		make -sC ./libft/
+		cp libft/libft.a .
+		mv libft.a $(NAME)
+		ar rc  $(NAME) $(OBJS)
+		ranlib $(NAME)
 
 all:	$(NAME)
 
 clean:
-		$(RM) $(NAME)
+		$(RM) $(OBJS)
+		make -sC ./libft/ clean
 
-fclean:	
+fclean:	clean
 		$(RM) $(NAME)
-		@clear
-		@make -sC	./libft/ fclean
-		@rm -f *.o
-		@rm -f a.out
-		@rm -rf a.out.dSYM
+		make -sC ./libft/ fclean
 
-re:		fclean all run 
+re:		fclean all
 
 .PHONY:	all fclean re

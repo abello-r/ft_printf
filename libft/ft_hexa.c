@@ -17,7 +17,7 @@ void	ft_hexa(size_t number)
 	size_t n;
 
 	n = number;
-	if (n > 16)
+	if (n >= 16)
 		ft_hexa(n / 16);
 	n = n % 16;
 	n = n < 10 ? n + '0' : n + 87;

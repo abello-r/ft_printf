@@ -12,6 +12,26 @@
 
 #include "libftprintf.h"
 
+void		ft_advance(t_printf *format)
+{
+	if (*format->str == 'd' || *format->str == 'i')
+		ft_spacex(format, va_arg(format->argptr, int));
+	else if (*format->str == 'c')
+		ft_display_c(format, va_arg(format->argptr, int));
+	else if (*format->str == 's')
+		ft_display_s(format, va_arg(format->argptr, char *));
+	else if (*format->str == 'u')
+		ft_display_u(format, va_arg(format->argptr, unsigned int));
+	else if (*format->str == 'x')
+		ft_display_x(format, va_arg(format->argptr, unsigned int));
+	else if (*format->str == 'X')
+		ft_display_xmayus(format, va_arg(format->argptr, unsigned int));
+	else if (*format->str == 'p')
+		ft_display_pointer(format, va_arg(format->argptr, char *));
+	else if (*format->str == '%')
+		ft_display_c(format, 37);
+}
+
 void		ft_formatletter(t_printf *format)
 {
 	format->len_str = 0;
@@ -20,10 +40,13 @@ void		ft_formatletter(t_printf *format)
 		if (*format->str == '%')
 		{
 			ft_setformat(format);
-				if (*format->str == 'd' || *format->str == 'i')
-					ft_spacex(format,va_arg(format->argptr, int));
-				else if (*format->str == 'c')
-					ft_displayc(format,va_arg(format->argptr, int));
+			ft_advance(format);
+			if (*format->str != 'd' && *format->str != 'i' &&
+				*format->str != 'c' && *format->str != 's' &&
+				*format->str != 'u' && *format->str != 'x' &&
+				*format->str != 'X' && *format->str != 'p' &&
+				*format->str != '%')
+				break ;
 		}
 		else
 			format->len_str += write(1, format->str, 1);
@@ -41,11 +64,4 @@ int			ft_printf(const char *s, ...)
 	ft_formatletter(&format);
 	va_end(format.argptr);
 	return (format.len_str);
-}
-
-int			main(void)
-{
-	printf("\n|%d|\n", ft_printf("\n%-5c", ' '));
-	   printf("\n|%d|\n", printf("\n%-5c", ' '));
-	return (0);
 }

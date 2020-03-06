@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-void	ft_hexamayus(size_t number)
+void	ft_hexamayus(unsigned int number)
 {
-	size_t	n;
+	unsigned int	n;
 
 	n = number;
 	if (n > 16)
